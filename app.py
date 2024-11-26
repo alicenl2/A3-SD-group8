@@ -33,6 +33,10 @@ def play():
     result = 'Win' if user_choice == app_choice else 'Lose'
     return render_template('result.html', user_choice=user_choice, app_choice=app_choice, result=result)
 
+@app.route('/results')
+def results():
+	games = GameResult.query.order_by(GameResult.id.desc()).limit(10).all()
+	return render_template('results.html', games=games)
 
 if __name__ == '__main__':
     app.run(debug=True)
