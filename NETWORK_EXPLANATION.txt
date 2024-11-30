@@ -1,0 +1,12 @@
+## Subnet and Static IP Range Selection
+•⁠  ⁠Subnet: 192.168.1.0/24
+•⁠  ⁠Static IP Range: 192.168.1.2 - 192.168.1.254
+•⁠  ⁠This range provides flexibility for assigning IPs to containers without any conflict.
+
+## Overlapping Subnets
+•⁠  ⁠If this subnet overlaps with an existing network on the host, routing issues can arise.
+•⁠  ⁠For example, packets intended for the container network might be misrouted to the host's physical network, causing connectivity failures.
+
+## Docker DNS Resolution
+•⁠ Dockre embedded DNS resolver maps container names to their IP addresses within the custom network.
+•⁠  ⁠This allows the ⁠ web ⁠ container to resolve ⁠ database ⁠ as ⁠ 192.168.1.3 ⁠ and communicate seamlessly.

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Result</title>
+</head>
+<body>
+    <h1>You chose: {{ user_choice }}</h1>
+    <h1>The app chose: {{ app_choice }}</h1>
+    <h2>You {{ result }}!</h2>
+    <a href="{{ url_for('home') }}">Play Again</a>
+</body>
+</html>
