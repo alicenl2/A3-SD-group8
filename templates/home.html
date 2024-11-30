@@ -1,0 +1,19 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guessing Game</title>
+</head>
+<body>
+    <h1>Choose Even or Odd</h1>
+    <form action="/play" method="post">
+        {% for option in options %}
+            <input type="radio" name="choice" value="{{ option }}" required> 
+{{ option }}<br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Play">
+    </form>
+</body>
+</html>

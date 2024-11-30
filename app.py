@@ -20,10 +20,13 @@ class GameResult(db.Model):
     def _repr_(self):
         return f'<GameResult {self.id} - {self.result}>'
 
+
+
 @app.route('/')
 def home():
     options = ['Even', 'Odd']
-    return render_template('home.html', options=options)
+    return render_template('home_html', options=options)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
