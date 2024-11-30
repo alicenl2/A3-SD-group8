@@ -8,7 +8,8 @@ from logging.handlers import RotatingFileHandler
 app = Flask(__name__)
 
 # Configure Database URI
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://user:password@localhost:5432/guessing_game_db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 
+'postgresql://user:password@localhost:5432/roulette')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
