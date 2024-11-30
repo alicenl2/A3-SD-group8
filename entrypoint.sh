@@ -1,9 +1,10 @@
 #!/bin/sh
 # Wait for the PostgreSQL database to be available
-if [ -z "$DATABASE_URL" ]; then
-  echo "Error: DATABASE_URL environment variable is not set."
-  exit 1
-fi
+echo "Waiting for PostgreSQL to be ready..."
+while ! nc -z db 5432; do
+  sleep 1
+done
+echo "PostgreSQL is ready!"
 
 python create_tables.py
 
