@@ -1,5 +1,29 @@
+from flask_sqlalchemy import SQLAlchemy
+import os
+import random
+from flask import Flask, render_template, request
 import logging
 from logging.handlers import RotatingFileHandler
+
+app = Flask(__name__)
+
+# Configure Database URI
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://user:password@localhost:5432/guessing_game_db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+
+# Define GameResult Model
+class GameResult(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_choice = db.Column(db.String(4), nullable=False)  # 'Even' or 'Odd'
+    app_choice = db.Column(db.String(4), nullable=False)   # 'Even' or 'Odd'
+    result = db.Column(db.String(4), nullable=False)       # 'Win' or 'Lose'
+
+    def __repr__(self):
+        return f'<GameResult {self.id} - {self.result}>'
+
 
 # Configure Logging
 if not app.debug:
@@ -19,6 +43,12 @@ if not app.debug:
     # Add handlers to the app logger
     app.logger.addHandler(file_handler)
     app.logger.addHandler(console_handler)
+
+
+@app.route('/')
+def home():
+    options = ['Even', 'Odd']
+    return render_template('home.html', options=options)
 
 
 @app.route('/play', methods=['POST'])
@@ -51,8 +81,6 @@ def play():
         return "An error occurred during the game.", 500
 
 
-
-
 @app.route('/results')
 def results():
     try:
@@ -62,3 +90,6 @@ def results():
         app.logger.error(f'Error fetching results: {e}')
         return "An error occurred while fetching the results.", 500
 
+
+if __name__ == '__main__':
+    app.run(debug=True)

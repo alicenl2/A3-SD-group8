@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Past Game Results</title>
+</head>
+<body>
+	<h1>Last 10 Game Results</h1>
+	<table border="1">
+    	<tr>
+        	<th>ID</th>
+        	<th>Your Choice</th>
+        	<th>App's Choice</th>
+        	<th>Result</th>
+    	</tr>
+    	{% for game in games %}
+    	<tr>
+        	<td>{{ game.id }}</td>
+        	<td>{{ game.user_choice }}</td>
+        	<td>{{ game.app_choice }}</td>
+        	<td>{{ game.result }}</td>
+    	</tr>
+    	{% endfor %}
+	</table>
+	<br>
+	<a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>
+
