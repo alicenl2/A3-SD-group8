@@ -1,7 +1,7 @@
-import random
-from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import os
+import random
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -11,6 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+
 # Define GameResult Model
 class GameResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,13 +19,15 @@ class GameResult(db.Model):
     app_choice = db.Column(db.String(4), nullable=False)   # 'Even' or 'Odd'
     result = db.Column(db.String(4), nullable=False)       # 'Win' or 'Lose'
 
-    def repr(self):
+    def __repr__(self):
         return f'<GameResult {self.id} - {self.result}>'
+
 
 @app.route('/')
 def home():
     options = ['Even', 'Odd']
     return render_template('home.html', options=options)
+
 
 @app.route('/play', methods=['POST'])
 def play():
@@ -34,7 +37,12 @@ def play():
     return render_template('result.html', user_choice=user_choice, app_choice=app_choice, result=result)
 
 
-if __name__ == '__main__':
-    app.run(debug=True) 
+@app.route('/results')
+def results():
+    games = GameResult.query.order_by(GameResult.id.desc()).limit(10).all()
+    return render_template('results.html', games=games)
 
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
