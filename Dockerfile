@@ -20,14 +20,6 @@ COPY . .
 # make sure that the entrypoint script is executable
 RUN chmod +x /app/entrypoint.sh
 
-# Expose port 5000 for the Flask application
-EXPOSE 5000
-
-# Set environment variables
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_ENV=production
-
 # the entrypoint script contains the exec command, and verifies conditions
 ENTRYPOINT ["/app/entrypoint.sh"]
 # replaces CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
