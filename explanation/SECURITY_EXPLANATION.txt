@@ -1,0 +1,40 @@
+**Importance of .env files:**
+
+- When building an application, it is critical to maintain a line 
+between the variables and part of the code that is static (and will 
+therefore be unchanged between the different times and places it runs, 
+and between the users running them), and the part of the application 
+that makes up the context in which the application will be able to run 
+on.(databases, for example).
+- An application can, for example, establish that connecting to a 
+PostgreSQL is required (like the examples from class), but the server 
+it is connected to and the data in it at any point in time (which 
+belongs to a specific, individual user) should and will change, even if 
+the underlying code is static. 
+
+- The best place to state and manage environmental configurations is 
+through environmental variables, which can be hard-coded into the 
+application, or read by user-modifiable executable config files. The 
+drawback is that, when developing an application locally, we probably 
+would not want to set a computer-wide global variable just to determine 
+some random fake credentials to use with a test database. This is true 
+even in containerized local environments.
+- Thankfully, applications supporting .env (there are many widespread .env support libraries)
+can run through each line (which are key=value pairs) and, for each, set
+each respective variable based on the file, if an environment variable 
+with that name does not already exist.
+- In short, .env files provide a convenient way to set environment-specific configurations 
+without changing code or setting global variables.  
+
+**Importance of .gitignore for .env files:**
+
+- Since anything in Git is going to be the same on every single 
+environment, .env files containing user-specific environmental, sensitive variables like
+database credentials should never be committed to version control. Each environment should have 
+its own .env file with appropriate configuration. 
+- Additionally, the other obvious reason to include .env files in .gitignore is security. .env 
+files containing sensitive information like API keys, passwords, etc. would be exposed publicly 
+via Git, allowing everyone to access those resources and enabling data theft, API abuse, 
+unauthorized changes, etc. 
+- In the case where credentials are accidentally exposed, they should be rotated immediately. In 
+this regard, two-factor authentication and using access tokens are best practices.  
