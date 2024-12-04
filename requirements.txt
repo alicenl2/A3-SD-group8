@@ -2,4 +2,6 @@ PyYAML
 Flask
 Flask_SQLAlchemy
 psycopg2-binary
-gunicorn 
+gunicorn
+python-dotenv
+
