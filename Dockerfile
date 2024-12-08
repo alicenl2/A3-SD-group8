@@ -1,5 +1,5 @@
 # python image from the Docker Hub, slim version for smaller size
-FROM python:3.10-slim as development
+FROM python:3.10-slim AS development
 
 # we set the working directory in the container to be /app
 WORKDIR /app
@@ -27,8 +27,8 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 # copy installed packages from builder
-COPY --from=builder /usr/local/lib/python3.10/site-packages/ 
-/usr/local/lib/python3.10/site-packages/
+COPY --from=development /usr/local/lib/python3.10/site-packages/ /usr/local/lib/python3.10/site-packages/
+COPY --from=development /usr/local/bin/ /usr/local/bin/
 
 # copy rest of the application code into the container
 COPY . .
